@@ -14,4 +14,4 @@ const ownerSchema = mongoose.Schema({
   jivoder: Boolean,
 });
 
-module.exports = mongoose.model('Owner', ownerSchema);
+export default mongoose.model('Owner', ownerSchema);

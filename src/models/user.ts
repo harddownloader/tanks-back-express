@@ -7,4 +7,4 @@ const userSchema = mongoose.Schema({
   idAddedOwnersHim: mongoose.Schema.Types.Mixed,
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

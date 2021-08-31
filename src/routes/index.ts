@@ -1,26 +1,26 @@
-const express = require('express')
-const mongoose = require("mongoose");
-const controllers = require('../controllers/servers')
-const router = express.Router()
-const Owner = require('../models/owner');
-const User = require('../models/user');
+import express from 'express';
+import mongoose from 'mongoose';
+// import controllers from '../controllers/servers';
+const router = express.Router();
+import Owner from '../models/owner';
+import User from '../models/user';
 
 // routes
-router.post('/api/server/get-all', controllers.getAll)
-router.post('/api/server/get-first', controllers.getFirst)
+// router.post('/api/server/get-all', controllers.getAll);
+// router.post('/api/server/get-first', controllers.getFirst);
 
 // get all owners
-router.get('/owners', (req,res, next) => {
+router.get('/owners', (req, res, next) => {
   Owner.find()
     .exec()
-    .then(docs => {
+    .then((docs) => {
       console.log(docs);
-      res.status(200).json(docs)
+      res.status(200).json(docs);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
       });
     });
 });
@@ -30,23 +30,25 @@ router.get('/owners/:ownerId', (req, res, next) => {
   const id = req.params.ownerId;
   Owner.findById(id)
     .exec()
-    .then(doc => {
+    .then((doc) => {
       console.log('From database', doc);
       if (doc) {
-        res.status(200).json(doc)
+        res.status(200).json(doc);
       } else {
-        res.status(404).json({message: 'No valid entry found for provided ID'});
+        res
+          .status(404)
+          .json({ message: 'No valid entry found for provided ID' });
       }
     })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({error: err})
-    })
-})
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
 
 // add owner
 router.post('/owners', (req, res, next) => {
-  console.log('req.body', req.body)
+  console.log('req.body', req.body);
   const owner = new Owner({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -60,15 +62,17 @@ router.post('/owners', (req, res, next) => {
     ktoDalTel: req.body.ktoDalTel,
     jivoder: req.body.jivoder,
   });
-  owner.save().then(result => {
-    console.log(result)
-  })
-  .catch(err => console.log(err));
+  owner
+    .save()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => console.log(err));
   res.status(201).json({
     message: 'Heading POST to /owners',
-    createdOwner: owner
-  })
-})
+    createdOwner: owner,
+  });
+});
 
 /**
  * update owner
@@ -121,80 +125,82 @@ router.post('/owners', (req, res, next) => {
 ]
  */
 // update owner fields
-router.patch("/owners/:ownerId", (req, res, next) => {
+router.patch('/owners/:ownerId', (req, res, next) => {
   const id = req.params.ownerId;
   const updateOps = {};
   for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value
+    updateOps[ops.propName] = ops.value;
   }
-  Owner.update({ _id: id }, {
-    $set: updateOps
-  })
-  .exec()
-  .then(result => {
-    res.status(200).json(result);
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      error: err
+  Owner.update(
+    { _id: id },
+    {
+      $set: updateOps,
+    }
+  )
+    .exec()
+    .then((result) => {
+      res.status(200).json(result);
     })
-  })
-})
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+});
 
 // delete owner
-router.delete("/owners/:ownerId", (req, res, next) => {
+router.delete('/owners/:ownerId', (req, res, next) => {
   const id = req.params.ownerId;
   Owner.remove({ _id: id })
     .exec()
-    .then(result => {
-      res.status(200).json(result)
+    .then((result) => {
+      res.status(200).json(result);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json({
-        error: err
-      })
-    })
-})
-
-
-
+        error: err,
+      });
+    });
+});
 
 // USERS
 // get all users
-router.get("/users", (req, res, next) => {
+router.get('/users', (req, res, next) => {
   User.find()
-  .exec()
-  .then(docs => {
-    console.log(docs);
-    res.status(200).json(docs)
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      error: err
+    .exec()
+    .then((docs) => {
+      console.log(docs);
+      res.status(200).json(docs);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
     });
-  });
-})
+});
 
 // get user by id
-router.get("/users/:userId", (req, res, next) => {
+router.get('/users/:userId', (req, res, next) => {
   const id = req.params.userId;
   User.findById(id)
     .exec()
-    .then(doc => {
+    .then((doc) => {
       console.log('From database', doc);
       if (doc) {
-        res.status(200).json(doc)
+        res.status(200).json(doc);
       } else {
-        res.status(404).json({message: 'No valid entry found for provided ID'});
+        res
+          .status(404)
+          .json({ message: 'No valid entry found for provided ID' });
       }
     })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({error: err})
-    })
-})
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
 
-module.exports = router
+export default router;

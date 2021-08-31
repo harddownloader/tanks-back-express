@@ -1,15 +1,6 @@
-const { buildSchema } = require("graphql");
+import { buildSchema } from 'graphql';
 
-// phones: Array
-/**
- * type User {
-    id: ID
-    fio: String
-    email: String
-    idAddedOwnersHim: [Owner]
-  }
- */
-const schema = buildSchema(`
+export const typeDefs = buildSchema(`
   
   type Owner {
     id: ID
@@ -17,12 +8,14 @@ const schema = buildSchema(`
     adress: String
     photoOwnerImage: String
     photoPasportImage: String
-    phones: [String]!
+    phones: [String]
     car: String
     history: String
-    whoGave: String,
+    whoGave: String
     ktoDalTel: String
     jivoder: Boolean
+    dateCreated: String
+    dateUpdated: String
   }
 
   input OwnerInput {
@@ -31,10 +24,10 @@ const schema = buildSchema(`
     adress: String
     photoOwnerImage: String
     photoPasportImage: String
-    phones: [String]!
+    phones: [String]
     car: String
     history: String
-    whoGave: String,
+    whoGave: String
     ktoDalTel: String
     jivoder: Boolean
   }
@@ -48,7 +41,7 @@ const schema = buildSchema(`
     phones: [String]
     car: String
     history: String
-    whoGave: String,
+    whoGave: String
     ktoDalTel: String
     jivoder: Boolean
   }
@@ -60,36 +53,32 @@ const schema = buildSchema(`
     idAddedOwnersHim: [String]!
   }
 
+
+  type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+  }
+
   type Query {
     getAllUsers: [User]
     getUser(id: ID): User
     getAllOwners: [Owner]
     getOwner(id: ID): Owner
 
-    currentNumber: Int
-
-    addOwnerEvent: Owner
-    createOwner: Owner
+    upOwnersByBackup: String
+    login(email: String!, password: String!): AuthData!
   }
 
   type Mutation {
-    createOwner(input: OwnerInput): Owner
-    updateOwner(input: OwnerUpdateInput): Owner
-    deleteOwner(id: ID): Owner
+    createOwner(input: OwnerInput!): Owner
+    updateOwner(input: OwnerUpdateInput!): Owner
+    deleteOwner(id: String!): Owner
+
+    addOwnerIdToUser(ownerId: String!, userId: String!): User
   }
 
-
-  
   type Subscription {
-    numberIncremented: Int
-    
-    postCreated: Owner
-    ownerAdded: [Owner]
+    newOwnersList: [Owner]
   }
-
 `);
-
-module.exports = schema;
-// export schema
-
-
