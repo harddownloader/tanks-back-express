@@ -1,6 +1,6 @@
 import { getCurrentDate } from '../../utils/getCurrentDate';
 import mongoose from 'mongoose';
-import Owner from '../../models/owner';
+import SelfPropelledGun from '../../models/SelfPropelledGun';
 import User from '../../models/user';
 
 export const queries = {
@@ -48,7 +48,7 @@ export const queries = {
   // get all owners
   getAllOwners: () => {
     return (
-      Owner.find()
+      SelfPropelledGun.find()
         // сортируем список по созданным, т.е. самые новые
         .sort({ _id: -1 })
         .exec()
@@ -64,7 +64,7 @@ export const queries = {
   },
   // get owner by id
   getOwner: ({ id }) => {
-    return Owner.findById(id)
+    return SelfPropelledGun.findById(id)
       .exec()
       .then((doc) => {
         console.log('From database', doc);

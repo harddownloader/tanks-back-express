@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose');
-const ourTankSchema = mongoose.Schema({
+const selfPropelledGunSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     // adress: String,
@@ -14,4 +14,4 @@ const ourTankSchema = mongoose.Schema({
     // ktoDalTel: String,
     // jivoder: Boolean,
 });
-exports.default = mongoose.model('OurTank', ourTankSchema);
+exports.default = mongoose.model('SelfPropelledGun', selfPropelledGunSchema);

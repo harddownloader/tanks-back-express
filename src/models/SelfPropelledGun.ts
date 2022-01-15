@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ourTankSchema = mongoose.Schema({
+const selfPropelledGunSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: String,
   // adress: String,
@@ -14,4 +14,4 @@ const ourTankSchema = mongoose.Schema({
   // jivoder: Boolean,
 });
 
-export default mongoose.model('OurTank', ourTankSchema);
+export default mongoose.model('SelfPropelledGun', selfPropelledGunSchema);

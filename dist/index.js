@@ -47,7 +47,7 @@ mongoose_1.default
     }));
     // cors
     var corsOptions = {
-        origin: 'http://localhost:9000',
+        origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     };
     app.use(cors());
@@ -97,27 +97,47 @@ mongoose_1.default
             firedBullets: [],
             fireStatus: true,
         };
-        session.data = enemyConfig;
+        session.enemy = enemyConfig;
         console.log(session);
-        return res.json({ session: session.data });
+        return res.json({ enemy: session.enemy });
     });
-    app.get('/enemy/:enemyId', function (req, res) {
-        return res.json({ session: session.data });
+    app.get('/enemy/:enemyId', cors(corsOptions), function (req, res) {
+        return res.json({ enemy: session.enemy });
     });
     // минус
-    app.get('/enemy/bullets/decrement', function (req, res) {
-        session.data.countBullets--;
-        return res.json({ bullets: session.data.countBullets });
+    app.get('/enemy/bullets/decrement', cors(corsOptions), function (req, res) {
+        session.enemy.countBullets--;
+        return res.json({ bullets: session.enemy.countBullets });
     });
     // готов ли стрелять
-    app.get('/enemy/fire/status', function (req, res) {
-        session.data.fireStatus = req.body.fireStatus;
-        return res.json({ fireStatus: session.data.fireStatus });
+    app.get('/enemy/fire/status', cors(corsOptions), function (req, res) {
+        session.enemy.fireStatus = req.body.fireStatus;
+        return res.json({ fireStatus: session.enemy.fireStatus });
     });
     // кол-во выстрелов
-    app.get('/enemy/fire/fired-bullets', function (req, res) {
-        session.data.firedBullets.push(req.body.firedBullets);
-        return res.json({ firedBullets: session.data.firedBullets });
+    app.get('/enemy/fire/fired-bullets', cors(corsOptions), function (req, res) {
+        session.enemy.firedBullets.push(req.body.firedBullets);
+        return res.json({ firedBullets: session.enemy.firedBullets });
+    });
+    // инициализация
+    app.get('/player/set', cors(corsOptions), function (req, res) {
+        const enemyConfig = {
+            id: '',
+            countBullets: 20,
+            firedBullets: [],
+            fireStatus: true,
+        };
+        session.player = enemyConfig;
+        console.log(session);
+        return res.json({ player: session.player });
+    });
+    app.get('/player', cors(corsOptions), function (req, res) {
+        return res.json({ player: session.player });
+    });
+    // минус
+    app.get('/player/bullets/decrement', cors(corsOptions), function (req, res) {
+        session.player.countBullets--;
+        return res.json({ bullets: session.player.countBullets });
     });
     const schema = (0, schema_1.makeExecutableSchema)({ typeDefs: index_1.typeDefs, resolvers: index_2.resolvers });
     const server = new apollo_server_express_1.ApolloServer({

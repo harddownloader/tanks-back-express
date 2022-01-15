@@ -17,7 +17,7 @@ const getCurrentDate_1 = require("../../utils/getCurrentDate");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const pubsub = new graphql_subscriptions_1.PubSub();
 const mongoose_1 = __importDefault(require("mongoose"));
-const owner_1 = __importDefault(require("../../models/owner"));
+const SelfPropelledGun_1 = __importDefault(require("../../models/SelfPropelledGun"));
 const user_1 = __importDefault(require("../../models/user"));
 const queries_1 = require("./queries");
 exports.mutations = {
@@ -25,7 +25,7 @@ exports.mutations = {
     // add owner
     createOwner: (parent, { input }) => {
         const currentDate = (0, getCurrentDate_1.getCurrentDate)();
-        const owner = new owner_1.default({
+        const owner = new SelfPropelledGun_1.default({
             _id: new mongoose_1.default.Types.ObjectId(),
             name: input.name,
             adress: input.adress,
@@ -69,7 +69,7 @@ exports.mutations = {
         updateOps['dateUpdated'] = currentDate;
         console.log('updateOps', updateOps);
         // return false
-        return owner_1.default.updateOne({ _id: input.id }, {
+        return SelfPropelledGun_1.default.updateOne({ _id: input.id }, {
             $set: updateOps,
         })
             .exec()
@@ -94,7 +94,7 @@ exports.mutations = {
     },
     // delete owner
     deleteOwner: (parent, { id }) => {
-        return owner_1.default.deleteOne({ _id: id })
+        return SelfPropelledGun_1.default.deleteOne({ _id: id })
             .exec()
             .then((doc) => __awaiter(void 0, void 0, void 0, function* () {
             console.log('From database', doc);

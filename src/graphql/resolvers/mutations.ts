@@ -2,7 +2,7 @@ import { getCurrentDate } from '../../utils/getCurrentDate';
 import { PubSub } from 'graphql-subscriptions';
 const pubsub = new PubSub();
 import mongoose from 'mongoose';
-import Owner from '../../models/owner';
+import SelfPropelledGun from '../../models/SelfPropelledGun';
 import User from '../../models/user';
 import { queries } from './queries';
 
@@ -12,7 +12,7 @@ export const mutations = {
   createOwner: (parent, { input }) => {
     const currentDate = getCurrentDate();
 
-    const owner = new Owner({
+    const owner = new SelfPropelledGun({
       _id: new mongoose.Types.ObjectId(),
       name: input.name,
       adress: input.adress,
@@ -59,7 +59,7 @@ export const mutations = {
     updateOps['dateUpdated'] = currentDate;
     console.log('updateOps', updateOps);
     // return false
-    return Owner.updateOne(
+    return SelfPropelledGun.updateOne(
       { _id: input.id },
       {
         $set: updateOps,
@@ -90,7 +90,7 @@ export const mutations = {
   },
   // delete owner
   deleteOwner: (parent, { id }) => {
-    return Owner.deleteOne({ _id: id })
+    return SelfPropelledGun.deleteOne({ _id: id })
       .exec()
       .then(async (doc) => {
         console.log('From database', doc);

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.queries = void 0;
-const owner_1 = __importDefault(require("../../models/owner"));
+const SelfPropelledGun_1 = __importDefault(require("../../models/SelfPropelledGun"));
 const user_1 = __importDefault(require("../../models/user"));
 exports.queries = {
     login: ({ email, password }) => __awaiter(void 0, void 0, void 0, function* () {
@@ -58,7 +58,7 @@ exports.queries = {
     // OWNERS
     // get all owners
     getAllOwners: () => {
-        return (owner_1.default.find()
+        return (SelfPropelledGun_1.default.find()
             // сортируем список по созданным, т.е. самые новые
             .sort({ _id: -1 })
             .exec()
@@ -73,7 +73,7 @@ exports.queries = {
     },
     // get owner by id
     getOwner: ({ id }) => {
-        return owner_1.default.findById(id)
+        return SelfPropelledGun_1.default.findById(id)
             .exec()
             .then((doc) => {
             console.log('From database', doc);
