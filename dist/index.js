@@ -120,6 +120,9 @@ mongoose_1.default
         return res.json({ firedBullets: session.enemy.firedBullets });
     });
     // инициализация
+    app.get('/map', cors(corsOptions), function (req, res) {
+        return res.json({ map: index_2.resolvers.Query.getMap() });
+    });
     app.get('/player/set', cors(corsOptions), function (req, res) {
         const enemyConfig = {
             id: '',

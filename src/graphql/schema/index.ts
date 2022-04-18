@@ -60,6 +60,12 @@ export const typeDefs = buildSchema(`
     tokenExpiration: Int!
   }
 
+  type Map {
+    id: ID!
+    name: String
+    encodedMap: String
+  }
+
   type Query {
     getAllUsers: [User]
     getUser(id: ID): User
@@ -68,6 +74,7 @@ export const typeDefs = buildSchema(`
 
     upOwnersByBackup: String
     login(email: String!, password: String!): AuthData!
+    getMap: Map
   }
 
   type Mutation {

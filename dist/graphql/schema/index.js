@@ -62,6 +62,12 @@ exports.typeDefs = (0, graphql_1.buildSchema)(`
     tokenExpiration: Int!
   }
 
+  type Map {
+    id: ID!
+    name: String
+    encodedMap: String
+  }
+
   type Query {
     getAllUsers: [User]
     getUser(id: ID): User
@@ -70,6 +76,7 @@ exports.typeDefs = (0, graphql_1.buildSchema)(`
 
     upOwnersByBackup: String
     login(email: String!, password: String!): AuthData!
+    getMap: Map
   }
 
   type Mutation {

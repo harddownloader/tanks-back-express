@@ -123,9 +123,11 @@ mongoose
   });
 
 
+  // инициализация карты
+  app.get('/map', cors(corsOptions), function(req, res) {
+    return res.json({map: resolvers.Query.getMap()});
+  });
 
-
-  // инициализация
   app.get('/player/set', cors(corsOptions), function (req, res) {
     const enemyConfig = {
       id: '',
