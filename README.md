@@ -7,6 +7,9 @@
 nvm use 14.15.0
 yarn install
 
+## Run dev server
+yarn dev
+
 ## Running
 yarn build
 yarn start

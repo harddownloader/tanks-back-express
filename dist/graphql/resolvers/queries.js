@@ -32,13 +32,11 @@ exports.queries = {
             name: "Single map",
             encodedMap: map.join(';')
         };
-        console.log('getMap()', result);
         return result;
     },
     // USERS
     // get all users
     getAllUsers: () => {
-        // return [{id: 'privet omlet'}]
         return user_1.default.find()
             .exec()
             .then((docs) => {

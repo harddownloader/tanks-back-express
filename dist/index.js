@@ -119,7 +119,7 @@ mongoose_1.default
         session.enemy.firedBullets.push(req.body.firedBullets);
         return res.json({ firedBullets: session.enemy.firedBullets });
     });
-    // инициализация
+    // инициализация карты
     app.get('/map', cors(corsOptions), function (req, res) {
         return res.json({ map: index_2.resolvers.Query.getMap() });
     });
